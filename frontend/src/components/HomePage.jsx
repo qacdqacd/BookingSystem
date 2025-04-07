@@ -24,7 +24,7 @@ const HomePage = () => {
   };
 
   return (
-    <Box sx={{ backgroundColor: "#f5f5f5", py: 8, minHeight: "50vh" }}>
+    <Box sx={{ py: 8, minHeight: "50vh" }}>
       <Container maxWidth="sm">
         <Paper
           elevation={4}
