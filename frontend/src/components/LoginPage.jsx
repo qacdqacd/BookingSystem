@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { TextField, Button, Typography, Box } from "@mui/material";
 import { Link } from "react-router-dom";
 import ReCAPTCHA from "react-google-recaptcha";
+import Layout from "./layout"; // import the Layout component
 
 const LoginPage = () => {
   const [username, setUsername] = useState("");
@@ -20,7 +21,7 @@ const LoginPage = () => {
     const response = await fetch("http://127.0.0.1:8000/api/token/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, password, recaptcha: captchaValue }), // Pass captcha response
+      body: JSON.stringify({ username, password, recaptcha: captchaValue }),
     });
 
     if (response.ok) {
@@ -40,7 +41,7 @@ const LoginPage = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        height: "100vh",
+        height: "50vh",
       }}
     >
       <Box sx={{ width: 300 }}>
@@ -68,7 +69,7 @@ const LoginPage = () => {
             margin="normal"
           />
           <ReCAPTCHA
-            sitekey="6LfU2gkrAAAAAIAitkJhHl6-6HXt7MW2oWZAVrkz" // Replace with your Site Key
+            sitekey="6LfU2gkrAAAAAIAitkJhHl6-6HXt7MW2oWZAVrkz"
             onChange={(value) => setCaptchaValue(value)}
           />
           {error && (

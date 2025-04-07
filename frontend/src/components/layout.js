@@ -7,7 +7,7 @@ const Layout = ({ children }) => {
   return (
     <Box display="flex" flexDirection="column" minHeight="100vh">
       <Header />
-      <Container sx={{ flex: 1, mt: 4, mb: 4 }}>{children}</Container>
+      <Container sx={{ flexGrow: 1, mt: 4, mb: 4 }}>{children}</Container>
       <Footer />
     </Box>
   );

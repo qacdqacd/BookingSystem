@@ -7,6 +7,7 @@ import {
   Paper,
   Container,
 } from "@mui/material";
+import Layout from "./layout"; // import Layout component
 
 const HomePage = () => {
   const handleLogout = () => {
@@ -23,7 +24,7 @@ const HomePage = () => {
   };
 
   return (
-    <Box sx={{ backgroundColor: "#f5f5f5", py: 8, minHeight: "100vh" }}>
+    <Box sx={{ backgroundColor: "#f5f5f5", py: 8, minHeight: "50vh" }}>
       <Container maxWidth="sm">
         <Paper
           elevation={4}
