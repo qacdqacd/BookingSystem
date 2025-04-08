@@ -81,7 +81,7 @@ const RegisterPage = () => {
             margin="normal"
           />
           <ReCAPTCHA
-            sitekey="your-site-key"
+            sitekey="6LfU2gkrAAAAAIAitkJhHl6-6HXt7MW2oWZAVrkz"
             onChange={(value) => setCaptchaValue(value)}
           />
           {error && (

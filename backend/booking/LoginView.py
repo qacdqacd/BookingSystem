@@ -1,19 +1,24 @@
+# views.py
 import requests
 from django.conf import settings
-from rest_framework.response import Response
+from django.contrib.auth.models import User
 from rest_framework.views import APIView
+from rest_framework.response import Response
 from rest_framework import status
+from django.core.exceptions import ValidationError
+from django.contrib.auth.password_validation import validate_password
 
-class LoginView(APIView):
+class RegisterView(APIView):
     def post(self, request):
         username = request.data.get("username")
         password = request.data.get("password")
-        recaptcha_response = request.data.get("recaptcha")  # Get reCAPTCHA response from frontend
+        email = request.data.get("email")
+        recaptcha_response = request.data.get("recaptcha")
 
         # Verify reCAPTCHA with Google's API
         captcha_url = "https://www.google.com/recaptcha/api/siteverify"
         payload = {
-            "secret": "6LfU2gkrAAAAAKX7aTQOnD66F0lg4Ato0x8MnFEX",  # Secret Key
+            "secret": "YOUR_SECRET_KEY",  # Replace with your reCAPTCHA secret key
             "response": recaptcha_response
         }
         captcha_response = requests.post(captcha_url, data=payload)
@@ -22,11 +27,12 @@ class LoginView(APIView):
         if not captcha_result.get("success"):
             return Response({"error": "reCAPTCHA verification failed."}, status=status.HTTP_400_BAD_REQUEST)
 
-        # Now, authenticate the user using the provided username and password
-        # You can use Django's built-in authentication system to verify the credentials here.
+        # Validate password
+        try:
+            validate_password(password)
+        except ValidationError as e:
+            return Response({"error": e.messages}, status=status.HTTP_400_BAD_REQUEST)
 
-        # If authentication is successful:
-        return Response({"message": "Login successful"}, status=status.HTTP_200_OK)
-
-        # If authentication fails:
-        return Response({"error": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)
+        # Create new user
+        user = User.objects.create_user(username=username, email=email, password=password)
+        return Response({"message": "User created successfully"}, status=status.HTTP_201_CREATED)

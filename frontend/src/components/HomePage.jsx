@@ -7,7 +7,6 @@ import {
   Paper,
   Container,
 } from "@mui/material";
-import Layout from "./layout"; // import Layout component
 
 const HomePage = () => {
   const handleLogout = () => {
